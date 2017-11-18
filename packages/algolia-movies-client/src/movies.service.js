@@ -1,4 +1,5 @@
 import algoliaSearch from "algoliasearch/lite";
+import CancelablePromise from "cancelable-promise";
 
 const client = algoliaSearch(
   process.env.REACT_APP_ALGOLIA_APP_ID,
@@ -7,7 +8,9 @@ const client = algoliaSearch(
 const moviesIndex = client.initIndex("movies");
 
 export function search(query, options) {
-  return moviesIndex.search({ query, hitsPerPage: 10, ...options });
+  return new CancelablePromise((resolve, reject) => {
+    moviesIndex.search({ query, hitsPerPage: 10, ...options }).then(resolve, reject);
+  });
 }
 
 export function create(movie) {}

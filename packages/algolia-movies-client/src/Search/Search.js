@@ -18,8 +18,13 @@ class Search extends PureComponent {
   };
 
   _updateSearchResults = (query, page) => {
-    return moviesService.search(query, { page }).then(searchResults => {
-      console.log(searchResults);
+    if (this._currentSearch) {
+      this._currentSearch.cancel();
+    }
+    this._currentSearch = moviesService.search(query, { page });
+
+    this._currentSearch.then(searchResults => {
+      this._currentSearch = null;
       this.setState({
         movies: searchResults.hits,
         currentPage: searchResults.page,
