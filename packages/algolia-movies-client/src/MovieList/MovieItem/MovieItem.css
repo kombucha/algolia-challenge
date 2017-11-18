@@ -27,7 +27,7 @@
 .MovieItem__title {
   font-weight: bold;
   /* 
-    Size of the movie score + some padding. 
+    Size of the movie rating + some padding. 
     /!\ Lame that it's hardcoded right now. 
     Should use css variables or scss preprocessing. 
     Will do for now 
@@ -35,7 +35,7 @@
   padding-right: 2.5rem;
 }
 
-.MovieItem__score {
+.MovieItem__rating {
   position: absolute;
   top: 0;
   right: 0;

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { pure } from "recompose";
 
 import Chip from "../../Chip";
-import Score from "../Score";
+import Rating from "../Rating";
 import "./MovieItem.css";
 
 const MovieItem = ({ movie }) => (
@@ -16,7 +16,7 @@ const MovieItem = ({ movie }) => (
           __html: movie._highlightResult.title.value,
         }}
       />
-      <Score className="MovieItem__score" value={movie.score} />
+      <Rating className="MovieItem__rating" value={movie.rating} />
       <span className="MovieItem__year">{movie.year}</span>
       <ul className="MovieItem__genres">
         {/* NB: Genre can be an empty array. And when it is, it doesn't appear at all in _highlightResult !*/}
