@@ -9,7 +9,7 @@ const Rating = ({ className, value }) => {
   const style = { color, borderColor: color };
   return (
     <span className={classnames("Rating", className)} style={style}>
-      {Math.round(value)}
+      {value}
     </span>
   );
 };

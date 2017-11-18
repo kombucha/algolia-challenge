@@ -13,6 +13,24 @@
   align-items: flex-start;
 }
 
+.Search__empty {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Search__reset-button {
+  color: #00aeff;
+  text-decoration: underline;
+  outline: 0;
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
 .Search__results {
   display: flex;
   flex-direction: column;
