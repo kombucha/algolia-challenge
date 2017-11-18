@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { pure } from "recompose";
 
 import Chip from "../../Chip";
-import Rating from "../Rating";
+import Rating from "../../Rating";
 import "./MovieItem.css";
 
 const MovieItem = ({ movie }) => (

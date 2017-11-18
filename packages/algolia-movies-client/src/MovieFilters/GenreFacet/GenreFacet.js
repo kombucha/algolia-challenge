@@ -3,12 +3,16 @@ import classnames from "classnames";
 import { pure } from "recompose";
 import PropTypes from "prop-types";
 
-import Card from "../Card";
+import FilterContainer from "../FilterContainer";
 import "./GenreFacet.css";
 
+const shouldDisplayClearButton = genres => Object.values(genres).some(g => g.selected);
+
 const GenreFacet = ({ genres, onGenreClicked, onClearClicked }) => (
-  <Card className="GenreFacet">
-    <span className="GenreFacet__title">Genres</span>
+  <FilterContainer
+    title="Genres"
+    onClearClicked={onClearClicked}
+    showClearButton={shouldDisplayClearButton(genres)}>
     <ul className="GenreFacet__list">
       {Object.entries(genres).map(([genre, config]) => (
         <li
@@ -22,8 +26,7 @@ const GenreFacet = ({ genres, onGenreClicked, onClearClicked }) => (
         </li>
       ))}
     </ul>
-    <button onClick={onClearClicked}>Clear all</button>
-  </Card>
+  </FilterContainer>
 );
 
 GenreFacet.propTypes = {

@@ -1,39 +1,31 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import queryString from "query-string";
+import deepEqual from "deep-equal";
 
 import SearchInput from "../SearchInput";
-import GenreFacet from "../GenreFacet";
+import MovieFilters from "../MovieFilters";
 import MovieList from "../MovieList";
 import Pagination from "../Pagination";
 import moviesService from "../movies.service";
-import { stateFromSearchResult, genresFacetFilter, clearGenreFacetFilter } from "./utils";
+import { stateFromSearchResult } from "./utils";
+import { generateAlgoliaFilters } from "../MovieFilters/utils";
 
 import "./Search.css";
 
 class Search extends Component {
-  state = { movies: [], currentPage: -1, totalPages: -1, searchText: "", genreFacet: {} };
-
-  _handleSearchChange = searchText => {
-    this.setState({ searchText, currentPage: 0 });
+  state = {
+    movies: [],
+    currentPage: -1,
+    totalPages: -1,
+    searchText: "",
+    filters: { genre: {}, rating: 4 },
   };
 
+  // Filtering change handlers
+  _handleSearchChange = searchText => this.setState({ searchText, currentPage: 0 });
+  _handlerFiltersChanged = filters => this.setState({ filters, currentPage: 0 });
   _handlePageChange = currentPage => this.setState({ currentPage });
-
-  _handleGenreSelected = genre => {
-    const genreConfig = this.state.genreFacet[genre];
-    const genreFacet = {
-      ...this.state.genreFacet,
-      [genre]: { ...genreConfig, selected: !genreConfig.selected },
-    };
-
-    this.setState({ genreFacet });
-  };
-
-  _handleGenreSelectionCleared = () => {
-    const genreFacet = clearGenreFacetFilter(this.state.genreFacet);
-    this.setState({ genreFacet });
-  };
 
   _updateSearchResults = (query, options) => {
     // Clear current search if it's pending
@@ -64,31 +56,27 @@ class Search extends Component {
   };
 
   componentWillUpdate = (nextProps, nextState) => {
-    const genresFilter = genresFacetFilter(this.state.genreFacet);
-    const nextGenresFilter = genresFacetFilter(nextState.genreFacet);
+    const filters = generateAlgoliaFilters(this.state.filters);
+    const nextFilters = generateAlgoliaFilters(nextState.filters);
 
     if (
       this.state.searchText !== nextState.searchText ||
       this.state.currentPage !== nextState.currentPage ||
-      genresFilter.join("|") !== nextGenresFilter.join("|")
+      !deepEqual(filters, nextFilters)
     ) {
       this._updateSearchResults(nextState.searchText, {
         page: nextState.currentPage,
-        facetFilters: nextGenresFilter,
+        ...nextFilters,
       });
     }
 
-    const queryParams = {
-      page: nextState.currentPage,
-      query: nextState.searchText,
-    };
+    const queryParams = { page: nextState.currentPage, query: nextState.searchText };
     this.props.history.push({ search: `?${queryString.stringify(queryParams)}` });
   };
 
   render() {
-    const { movies, currentPage, totalPages, searchText, genreFacet } = this.state;
-    const shouldDisplayPagination = !!movies.length && totalPages > 1;
-    const shouldDisplayFilters = Object.keys(genreFacet).length > 0;
+    const { movies, currentPage, totalPages, searchText, filters } = this.state;
+    const shouldDisplayPagination = totalPages > 1;
 
     return (
       <div className="Search">
@@ -112,15 +100,9 @@ class Search extends Component {
               />
             )}
           </div>
-          {shouldDisplayFilters && (
-            <div className="Search__facets">
-              <GenreFacet
-                genres={genreFacet}
-                onGenreClicked={this._handleGenreSelected}
-                onClearClicked={this._handleGenreSelectionCleared}
-              />
-            </div>
-          )}
+          <div className="Search__facets">
+            <MovieFilters filters={filters} onChange={this._handlerFiltersChanged} />
+          </div>
         </div>
       </div>
     );

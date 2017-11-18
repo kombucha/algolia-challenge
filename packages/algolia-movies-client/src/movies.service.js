@@ -10,7 +10,7 @@ const moviesIndex = client.initIndex("movies");
 const DEFAULT_SEARCH_OPTIONS = {
   hitsPerPage: 10,
   maxValuesPerFacet: 10,
-  facets: ["genre", "rating"],
+  facets: ["genre"],
 };
 export function search(query, options) {
   return new CancelablePromise((resolve, reject) => {
