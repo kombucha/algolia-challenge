@@ -1,0 +1,25 @@
+.SearchInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* border-bottom: 1px solid #999; */
+}
+
+.SearchInput__icon {
+  color: #999;
+}
+
+.SearchInput__input {
+  width: 100%;
+  appearance: textfield;
+  font-size: 2rem;
+  outline: 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #999;
+}
+
+.SearchInput__input::placeholder {
+  font-family: "Roboto";
+  color: #999;
+}

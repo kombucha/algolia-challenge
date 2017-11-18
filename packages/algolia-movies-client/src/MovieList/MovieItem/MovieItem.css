@@ -1,0 +1,57 @@
+.MovieItem {
+  display: flex;
+  flex-direction: row;
+}
+
+.MovieItem em {
+  font-style: normal;
+  text-decoration: underline;
+}
+
+.MovieItem__poster {
+  width: 100px;
+  height: 120px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.MovieItem__description {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 0.5rem 0rem;
+}
+
+.MovieItem__title {
+  font-weight: bold;
+  /* 
+    Size of the movie score + some padding. 
+    /!\ Lame that it's hardcoded right now. 
+    Should use css variables or scss preprocessing. 
+    Will do for now 
+  */
+  padding-right: 2.5rem;
+}
+
+.MovieItem__score {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.MovieItem__genres {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.MovieItem__genre {
+  display: inline-block;
+  margin-right: 0.2rem;
+}

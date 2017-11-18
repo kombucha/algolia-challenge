@@ -1,0 +1,12 @@
+.App {
+  min-height: 100vh;
+  background: linear-gradient(to right, #fff 0%, #f1f4fd 50%, #f1f4fd 100%);
+  background-color: #f1f4fd;
+}
+.App__content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  padding-top: 4rem;
+}

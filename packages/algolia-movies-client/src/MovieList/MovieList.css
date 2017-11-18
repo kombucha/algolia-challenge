@@ -1,0 +1,15 @@
+.MovieList {
+  margin: 0;
+  padding: 0;
+  max-width: 900px;
+}
+
+.MovieList__item {
+  list-style: none;
+}
+
+.MovieList__item:not(:last-of-type) {
+  border-bottom: 1px solid rgba(204, 204, 204, 0.4);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
