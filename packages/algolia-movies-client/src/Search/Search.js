@@ -13,7 +13,7 @@ class Search extends Component {
   state = { movies: [], currentPage: 0, totalPages: 0, searchText: "" };
 
   _handleSearchChange = searchText => {
-    this.setState({ searchText });
+    this.setState({ searchText, currentPage: 0 });
   };
 
   _handlePageChange = newPage => {
