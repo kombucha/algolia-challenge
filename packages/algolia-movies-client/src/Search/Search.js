@@ -10,7 +10,7 @@ import moviesService from "../movies.service";
 import "./Search.css";
 
 class Search extends Component {
-  state = { movies: [], currentPage: 0, totalPages: 0, searchText: "" };
+  state = { movies: [], currentPage: -1, totalPages: -1, searchText: "" };
 
   _handleSearchChange = searchText => {
     this.setState({ searchText, currentPage: 0 });
