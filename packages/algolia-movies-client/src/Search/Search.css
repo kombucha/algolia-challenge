@@ -1,9 +1,23 @@
 .Search {
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+  width: 900px;
+}
+
+.Search__main {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.Search__results {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 1rem 0;
-  width: 800px;
+  flex: 1;
 }
 
 .Search__field {
@@ -14,6 +28,17 @@
   margin-top: 1rem;
 }
 
-.Search__results {
+.Search__list {
   width: 100%;
+}
+
+.Search__facets {
+  margin-left: 1rem;
+}
+
+/* It gets cramped at some point, facets are less essential */
+@media only screen and (max-width: 600px) {
+  .Search__facets {
+    display: none;
+  }
 }

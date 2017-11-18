@@ -7,9 +7,14 @@ const client = algoliaSearch(
 );
 const moviesIndex = client.initIndex("movies");
 
+const DEFAULT_SEARCH_OPTIONS = {
+  hitsPerPage: 10,
+  maxValuesPerFacet: 10,
+  facets: ["genre", "rating"],
+};
 export function search(query, options) {
   return new CancelablePromise((resolve, reject) => {
-    moviesIndex.search({ query, hitsPerPage: 10, ...options }).then(resolve, reject);
+    moviesIndex.search({ query, ...DEFAULT_SEARCH_OPTIONS, ...options }).then(resolve, reject);
   });
 }
 
