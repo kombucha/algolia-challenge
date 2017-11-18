@@ -1,36 +1,49 @@
 import React, { PureComponent } from "react";
 import SearchInput from "../SearchInput";
 import MovieList from "../MovieList";
+import Pagination from "../Pagination";
 import moviesService from "../movies.service";
 
 import "./Search.css";
 
 class Search extends PureComponent {
-  state = { movies: [], searchText: "" };
+  state = { movies: [], currentPage: 0, totalPages: 0, searchText: "" };
 
   _handleSearchChange = searchText => {
     this.setState({ searchText });
   };
 
-  _updateSearchResults = query => {
-    return moviesService.search(query).then(searchResults => {
+  _handlePageChange = newPage => {
+    this.setState({ currentPage: newPage });
+  };
+
+  _updateSearchResults = (query, page) => {
+    return moviesService.search(query, { page }).then(searchResults => {
       console.log(searchResults);
-      this.setState({ movies: searchResults.hits });
+      this.setState({
+        movies: searchResults.hits,
+        currentPage: searchResults.page,
+        totalPages: searchResults.nbPages,
+      });
     });
   };
 
   componentDidMount = () => {
-    this._updateSearchResults("");
+    this._updateSearchResults("", 0);
   };
 
   componentWillUpdate = (nextProps, nextState) => {
-    if (this.state.searchText !== nextState.searchText) {
-      this._updateSearchResults(nextState.searchText);
+    if (
+      this.state.searchText !== nextState.searchText ||
+      this.state.currentPage !== nextState.currentPage
+    ) {
+      this._updateSearchResults(nextState.searchText, nextState.currentPage);
     }
   };
 
   render() {
-    const { movies, searchText } = this.state;
+    const { movies, currentPage, totalPages, searchText } = this.state;
+    const shouldDisplayPagination = !!movies.length && totalPages > 1;
     return (
       <div className="Search">
         <SearchInput
@@ -42,6 +55,14 @@ class Search extends PureComponent {
         />
 
         <MovieList className="Search__results" movies={movies} />
+        {shouldDisplayPagination && (
+          <Pagination
+            className="Search__pagination"
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={this._handlePageChange}
+          />
+        )}
       </div>
     );
   }

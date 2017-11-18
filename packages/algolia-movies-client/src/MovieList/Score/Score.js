@@ -14,7 +14,7 @@ const Score = ({ className, value }) => {
   );
 };
 
-// TODO: find better colors
+// TODO: find nicer colors
 const BAD_MOVIE_COLOR = [255, 0, 0];
 const AVERAGE_MOVIE_COLOR = [255, 165, 0];
 const GOOD_MOVIE_COLOR = [0, 255, 0];

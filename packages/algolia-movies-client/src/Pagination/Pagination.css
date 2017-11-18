@@ -1,0 +1,44 @@
+.Pagination__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.Pagination__item {
+  display: inline-block;
+  list-style: none;
+}
+
+.Pagination__item:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+
+.Pagination__button {
+  background: none;
+  border: none;
+  outline: 0;
+  color: #000;
+  cursor: pointer;
+  padding: 0;
+
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.Pagination__button[disabled] {
+  color: #999;
+  cursor: default;
+}
+
+.Pagination__button--current {
+  color: #00aeff;
+  cursor: default;
+  pointer-events: none;
+}
+
+.Pagination__button svg {
+  color: inherit;
+}

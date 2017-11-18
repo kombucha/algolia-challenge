@@ -1,6 +1,10 @@
 .Card {
   background: #fff;
   box-shadow: 0 2px 4px rgba(5, 15, 44, 0.1);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 1.5rem;
+}
+
+.Card--full-bleed {
+  padding: 0;
 }

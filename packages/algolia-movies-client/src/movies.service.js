@@ -7,7 +7,7 @@ const client = algoliaSearch(
 const moviesIndex = client.initIndex("movies");
 
 export function search(query, options) {
-  return moviesIndex.search({ query, ...options });
+  return moviesIndex.search({ query, hitsPerPage: 10, ...options });
 }
 
 export function create(movie) {}
