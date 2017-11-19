@@ -4,8 +4,8 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import Header from "../Header";
-import Button from "../Button";
+import Header from "../common/Header";
+import Button from "../common/Button";
 import Search from "../Search";
 import MovieCreation from "../MovieCreation";
 
@@ -16,7 +16,6 @@ class App extends PureComponent {
     this.props.history.push("/create");
   };
   render() {
-    console.log(this.props);
     return (
       <div className="App">
         <Header title="Movies">

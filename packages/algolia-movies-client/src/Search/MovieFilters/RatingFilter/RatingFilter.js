@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import FilterContainer from "../FilterContainer";
-import Rating from "../../Rating";
+import Rating from "../../../common/Rating";
 import "./RatingFilter.css";
 
 const RatingFilter = ({ minRating, onRatingChanged }) => (

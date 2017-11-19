@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+
+import Card from "../../common/Card";
 import MovieItem from "./MovieItem";
-import Card from "../Card";
 import "./MovieList.css";
 
 export const MovieList = ({ className, movies, onDeleteMovie }) => (

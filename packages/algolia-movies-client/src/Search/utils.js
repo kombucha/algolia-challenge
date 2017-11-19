@@ -1,6 +1,6 @@
 import queryString from "query-string";
 
-import { updateFilters, DEFAULT_FILTERS } from "../MovieFilters/utils";
+import { updateFilters, DEFAULT_FILTERS } from "./MovieFilters/utils";
 
 /**
  * Update state from search results

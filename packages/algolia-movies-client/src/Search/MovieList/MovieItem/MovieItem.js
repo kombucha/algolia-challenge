@@ -4,9 +4,9 @@ import classnames from "classnames/dedupe";
 import { pure } from "recompose";
 import DeleteIcon from "react-icons/lib/md/delete";
 
-import Button from "../../Button";
-import Chip from "../../Chip";
-import Rating from "../../Rating";
+import Button from "../../../common/Button";
+import Chip from "../../../common/Chip";
+import Rating from "../../../common/Rating";
 import "./MovieItem.css";
 
 const EMPTY_ARRAY = [];

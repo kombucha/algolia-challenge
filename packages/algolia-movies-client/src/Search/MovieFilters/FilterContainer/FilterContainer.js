@@ -4,7 +4,7 @@ import { pure } from "recompose";
 import PropTypes from "prop-types";
 import ClearIcon from "react-icons/lib/md/highlight-remove";
 
-import Card from "../../Card";
+import Card from "../../../common/Card";
 import "./FilterContainer.css";
 
 const FilterContainer = ({ title, showClearButton, onClearClicked, children }) => (

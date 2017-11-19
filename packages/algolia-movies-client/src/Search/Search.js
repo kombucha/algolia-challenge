@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import deepEqual from "deep-equal";
 import { toast } from "react-toastify";
 
-import KawaiiPlanet from "../KawaiiPlanet";
-import Card from "../Card";
-import SearchInput from "../SearchInput";
-import DelayedComponent from "../DelayedComponent";
-import MovieFilters from "../MovieFilters";
-import MovieList from "../MovieList";
-import Pagination from "../Pagination";
-import LoadingMask from "../LoadingMask";
+import KawaiiPlanet from "../common/KawaiiPlanet";
+import Card from "../common/Card";
+import DelayedComponent from "../common/DelayedComponent";
+import Pagination from "../common/Pagination";
+import LoadingMask from "../common/LoadingMask";
 import moviesService from "../movies.service";
+import { generateAlgoliaFilters, DEFAULT_FILTERS } from "./MovieFilters/utils";
 import { updateStateFromSearchResults, stateToQueryParams, stateFromQueryParams } from "./utils";
-import { generateAlgoliaFilters, DEFAULT_FILTERS } from "../MovieFilters/utils";
+import SearchInput from "./SearchInput";
+import MovieFilters from "./MovieFilters";
+import MovieList from "./MovieList";
 
 import "./Search.css";
 
