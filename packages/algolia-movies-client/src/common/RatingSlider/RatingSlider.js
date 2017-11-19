@@ -3,15 +3,15 @@ import classnames from "classnames/dedupe";
 import PropTypes from "prop-types";
 
 import Rating from "../Rating";
+import Slider from "../Slider";
 import "./RatingSlider.css";
 
 const RatingSlider = ({ className, name, id, value, onChange }) => (
   <div className={classnames("RatingSlider", className)}>
-    <input
+    <Slider
       id={id}
       name={name}
       className="RatingSlider__input"
-      type="range"
       min="0"
       max="5"
       value={value}
