@@ -1,1 +1,30 @@
+.MovieCreation {
+  padding: 1rem;
+}
 
+.MovieCreation__form {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.MovieCreation__field {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.MovieCreation__input {
+  width: 50%;
+}
+
+.MovieCreation__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.MovieCreation__actions *:not(:last-of-type) {
+  margin-right: 0.5rem;
+}

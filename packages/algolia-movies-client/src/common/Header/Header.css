@@ -18,9 +18,11 @@
   flex: 1;
 }
 
-.Header__title {
+.Header__title,
+.Header__title a {
   padding: 0;
   margin: 0;
   font-size: 1.5rem;
   color: #00aeff;
+  text-decoration: none;
 }

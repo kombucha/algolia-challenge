@@ -33,7 +33,30 @@ export function search(query, options) {
   });
 }
 
-export function create(movie) {}
+export function getSuggestions() {
+  return new CancelablePromise((resolve, reject) => {
+    Promise.all([
+      moviesIndex.searchForFacetValues({ facetName: "genre", facetQuery: "", maxFacetHits: 30 }),
+      moviesIndex.searchForFacetValues({ facetName: "actors", facetQuery: "", maxFacetHits: 30 }),
+    ]).then(([genres, actors]) => {
+      resolve({
+        genres: genres.facetHits.map(g => g.value),
+        actors: actors.facetHits.map(g => g.value),
+      });
+    }, reject);
+  });
+}
+
+export function create(movie) {
+  const formData = new FormData();
+  formData.append("movie", JSON.stringify({ ...movie, image: null }));
+  formData.append("image", movie.image);
+
+  return fetch("/api/1/movies/", {
+    method: "POST",
+    body: formData,
+  }).then(r => (r.ok ? Promise.resolve(r.statusText) : Promise.reject(r.statusText)));
+}
 
 export function remove(movieId) {
   return fetch(`/api/1/movies/${movieId}`, {
@@ -50,6 +73,7 @@ export function remove(movieId) {
 
 export default {
   search,
+  getSuggestions,
   create,
   remove,
 };
