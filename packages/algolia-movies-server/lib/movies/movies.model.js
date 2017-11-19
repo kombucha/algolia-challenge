@@ -1,18 +1,27 @@
 const movieIndex = require("./movies.index");
 const uuid = require("uuid/v4");
+const db = require("../db");
+
+const COLLECTION_NAME = "movies";
 
 const create = async movie => {
   const createdMovie = Object.assign({}, movie, { objectID: uuid() });
-  // Create in algolia index
+
+  const database = await db.get();
+  await database.collection(COLLECTION_NAME).insert(createdMovie);
+
   await movieIndex.addObject(createdMovie);
-  // TODO: add to db
+
   return createdMovie;
 };
 
-const remove = async movieId => {
-  await movieIndex.deleteObject(movieId);
-  // TODO: delete from db
-  return movieId;
+const remove = async objectID => {
+  const database = await db.get();
+  await database.collection(COLLECTION_NAME).remove({ objectID });
+
+  await movieIndex.deleteObject(objectID);
+
+  return objectID;
 };
 
 module.exports = {

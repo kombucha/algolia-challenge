@@ -3,6 +3,7 @@ const express = require("express");
 const history = require("connect-history-api-fallback");
 
 const logger = require("./lib/logger");
+const db = require("./lib/db");
 const apiRouter = require("./lib/api.router");
 
 const app = express();
@@ -30,7 +31,10 @@ app.use((err, req, res, next) => {
   res.json({ code: 500, message: "Unexpected error" });
 });
 
-const port = parseInt(process.env.PORT, 10);
-app.listen(port, () => {
+// Start server
+(async () => {
+  const port = parseInt(process.env.PORT, 10);
+  await db.get();
+  await app.listen(port);
   logger.info(`Server started on port ${port}`);
-});
+})();

@@ -2,6 +2,73 @@
 
 The goal of this test is to evaluate your ability to architecture a small full-stack app.
 
+You can see a running version of my code at [http://algolia.limbocitizen.com](http://algolia.limbocitizen.com)
+
+## Getting started
+
+### Downloading the project
+```sh
+git clone https://github.com/kombucha/algolia-challenge
+cd algolia-challenge
+yarn install
+# or 
+npm install
+```
+
+### Setting up the database
+This app uses mongodb. You can spin an instance of mongo with docker. Just run : 
+```
+docker run -p 27017:27017 --name algolia-mongo -d mongo
+```
+
+### Setting up algolia
+
+The index name used in this app is `movies`.
+Here are screenshots of my config
+
+![Algolia Basic settings console](doc/algolia-basic-settings.png)
+![Algolia Faceting settings console](doc/algolia-faceting-settings.png)
+![Algolia Display settings console](doc/algolia-display-settings.png)
+
+I tried to reduce the payload size when searching by : 
+  - Setting a minimum default attributes to retrieve (ie exclude unused attributes like color, actors etc)
+  - Setting highlite only on title and genre (only attributes displayed)
+
+
+### Setting up the env files
+You then need to generate two env files, one for the client and one for the server
+```
+cp packages/algolia-movies-server/.env.template packages/algolia-movies-server/.env
+
+cp packages/algolia-movies-client/.env.template packages/algolia-movies-client/.env
+```
+
+Fill out the relevant information in those env files: 
+
+Server
+| Variable      | Usage         | Default  |
+| ------------- |:-------------:| -----:|
+| PORT          | The port to run the server on | 9000 |
+| ALGOLIA_APP_ID| The algolia app id  |  |
+| ALGOLIA_ADMIN_KEY| The algolia admin key |  |
+| PUBLIC_PATH| The path to the static build of the client | ../algolia-movies-client/build |
+| UPLOADS_PATH| Where to upload images (folder) |  |
+| DB_URI | The mongodb uri |  |
+
+Client
+| Variable | Usage | Default |
+| - | :-| -:|
+|REACT_APP_ALGOLIA_APP_ID| The algolia app id (same as server) |
+|REACT_APP_ALGOLIA_SEARCH_KEY|The algolia search only key| |
+
+### Starting the app
+
+Finally 😅, you can start the app in dev mode : 
+```sh
+npm start
+```
+
+
 ## Instructions
 
 The app is comprised of 2 parts:

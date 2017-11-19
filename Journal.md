@@ -1,3 +1,0 @@
-- Reduce payload:
-  - By setting minimum default attributes to retrieve (ie exclude unused attributes like color, actors etc)
-  - Highlite only title and genre (only attributes displayed)
