@@ -64,12 +64,14 @@ class Search extends Component {
   _handlePageChange = currentPage => this.setState({ currentPage });
 
   _handleMovieDelete = movieId => {
-    moviesService
-      .remove(movieId)
-      .then(this._refreshSearchResults)
-      .catch(e => {
-        toast.error("Failed to delete movie");
-      });
+    if (window.confirm(`Are you sure you want to delete this movie ?`)) {
+      moviesService
+        .remove(movieId)
+        .then(this._refreshSearchResults)
+        .catch(e => {
+          toast.error("Failed to delete movie");
+        });
+    }
   };
 
   _refreshSearchResults = () => {
