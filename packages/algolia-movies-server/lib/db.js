@@ -2,6 +2,10 @@ const MongoClient = require("mongodb").MongoClient;
 const logger = require("./logger");
 
 let dbPromise;
+/**
+ * Gets the singleton mongodb connection.
+ * @returns {Promise} A promise containing the MongoDB connection, or a rejected promise otherwise.
+ */
 function get() {
   if (!dbPromise) {
     dbPromise = MongoClient.connect(process.env.DB_URI);
@@ -19,9 +23,13 @@ function get() {
   return dbPromise;
 }
 
+/**
+ * Closes the mongodb singleton if it exists, does nothing otherwise
+ * @returns {Promise}
+ */
 function close() {
   if (!dbPromise) {
-    return;
+    return Promise.resolve();
   }
 
   return dbPromise.then(connection => {

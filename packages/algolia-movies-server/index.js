@@ -3,6 +3,7 @@ const express = require("express");
 const history = require("connect-history-api-fallback");
 
 const logger = require("./lib/logger");
+const { expressErrorHandler } = require("./lib/errors");
 const db = require("./lib/db");
 const apiRouter = require("./lib/api.router");
 
@@ -24,12 +25,7 @@ app.use(history());
 app.use("/api/1", apiRouter);
 
 // Global error handler
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  logger.error(err);
-  res.status(500);
-  res.json({ code: 500, message: "Unexpected error" });
-});
+app.use(expressErrorHandler);
 
 // Start server
 (async () => {

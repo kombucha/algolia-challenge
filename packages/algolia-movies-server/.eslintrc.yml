@@ -3,4 +3,6 @@ parserOptions:
   ecmaVersion: 8
 env:
   node: true
+globals:
+  Promise: true
 

@@ -1,0 +1,64 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "title": {
+      "$id": "/properties/title",
+      "type": "string"
+    },
+    "alternative_titles": {
+      "$id": "/properties/alternative_titles",
+      "type": "array",
+      "additionalItems": true,
+      "uniqueItems": false,
+      "items": {
+        "$id": "/properties/alternative_titles/items",
+        "type": "string"
+      }
+    },
+    "year": {
+      "$id": "/properties/year",
+      "type": "integer",
+      "minimum": 1800,
+      "maximum": 3000
+    },
+    "image": {
+      "$id": "/properties/image",
+      "type": "string"
+    },
+    "rating": {
+      "$id": "/properties/rating",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "actors": {
+      "$id": "/properties/actors",
+      "type": "array",
+      "additionalItems": true,
+      "uniqueItems": false,
+      "items": {
+        "$id": "/properties/actors/items",
+        "type": "string"
+      }
+    },
+    "genre": {
+      "$id": "/properties/genre",
+      "type": "array",
+      "additionalItems": true,
+      "uniqueItems": false,
+      "items": {
+        "$id": "/properties/genre/items",
+        "type": "string"
+      }
+    },
+    "objectID": {
+      "$id": "/properties/objectID",
+      "type": "string"
+    }
+  },
+  "required": ["title", "year", "image", "rating"]
+}
