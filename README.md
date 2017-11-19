@@ -46,20 +46,25 @@ cp packages/algolia-movies-client/.env.template packages/algolia-movies-client/.
 Fill out the relevant information in those env files: 
 
 Server
-| Variable      | Usage         | Default  |
-| ------------- |:-------------:| -----:|
-| PORT          | The port to run the server on | 9000 |
-| ALGOLIA_APP_ID| The algolia app id  |  |
-| ALGOLIA_ADMIN_KEY| The algolia admin key |  |
-| PUBLIC_PATH| The path to the static build of the client | ../algolia-movies-client/build |
-| UPLOADS_PATH| Where to upload images (folder) |  |
-| DB_URI | The mongodb uri |  |
+
+| Variable          | Usage                                      | Default                        |
+|-------------------|--------------------------------------------|--------------------------------|
+| PORT              | The port to run the server on              | 9000                           |
+| ALGOLIA_APP_ID    | The algolia app id                         |                                |
+| ALGOLIA_ADMIN_KEY | The algolia admin key                      |                                |
+| PUBLIC_PATH       | The path to the static build of the client | ../algolia-movies-client/build |
+| UPLOADS_PATH      | Where to upload images (folder)            |                                |
+| DB_URI            | The mongodb uri                            |                                |
+
+
 
 Client
-| Variable | Usage | Default |
-| - | :-| -:|
-|REACT_APP_ALGOLIA_APP_ID| The algolia app id (same as server) |
-|REACT_APP_ALGOLIA_SEARCH_KEY|The algolia search only key| |
+
+| Variable                     | Usage                               | Default | 
+|------------------------------|-------------------------------------|---------| 
+| REACT_APP_ALGOLIA_APP_ID     | The algolia app id (same as server) |         | 
+| REACT_APP_ALGOLIA_SEARCH_KEY | The algolia search only key         |         | 
+
 
 ### Starting the app
 
