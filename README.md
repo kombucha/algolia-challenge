@@ -78,6 +78,17 @@ cd packages/algolia-movies-server
 yarn run import-movies
 ```
 
+## "If I had more time..."
+- The creation form is a bit barebone right now. Possible improvements :
+  - Show validation errors in creation form ! (highlight fields in red, show error messages etc)
+  - Show preview of uploaded image with the File API
+  - Show actors' picture in the suggestions for actors
+- More facets in search ? I could have used actors as facets, but I felt it didn't make much sense. Years would have been a good facet (or filter, with slider that's double ended and you can set a range like "between 1980 and 1990)!
+- Animations ? I thought about animating the list, but the search is so fast that animating would make it seem slower.
+- (Way) More tests !
+- Storybooks for my components ;)
+- Fancy login
+
 
 ## Instructions
 
