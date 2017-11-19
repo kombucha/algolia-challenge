@@ -1,4 +1,5 @@
 .MovieItem {
+  position: relative;
   display: flex;
   flex-direction: row;
 }
@@ -14,6 +15,25 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left center;
+}
+
+.MovieItem__actions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(80, 80, 80, 0.5);
+  transition: opacity 0.2s linear;
+  opacity: 1;
+}
+
+.MovieItem__actions--hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .MovieItem__description {

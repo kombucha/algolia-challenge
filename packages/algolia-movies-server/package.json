@@ -8,6 +8,9 @@
   "scripts": {
     "start": "nodemon -r dotenv/config index.js"
   },
+  "engines": {
+    "node": ">= 8.9"
+  },
   "dependencies": {
     "algoliasearch": "3.24.6",
     "connect-history-api-fallback": "1.5.0",

@@ -59,6 +59,18 @@ class Search extends Component {
     this.setState({ searchText: "", filters: DEFAULT_FILTERS, currentPage: 0 });
   _handlePageChange = currentPage => this.setState({ currentPage });
 
+  _handleMovieDelete = movieId => {
+    moviesService.remove(movieId).then(this._refreshSearchResults);
+  };
+
+  _refreshSearchResults = () => {
+    console.log("REFRESHING");
+    this._updateSearchResults(this.state.searchText, {
+      page: this.state.currentPage,
+      ...generateAlgoliaFilters(this.state.filters),
+    });
+  };
+
   _updateSearchResults = (query, options) => {
     // Clear current search if it's pending
     if (this._currentSearch) {
@@ -100,7 +112,7 @@ class Search extends Component {
 
     const shouldRenderEmptyResults = !movies.length && !loading;
     const shouldRenderResults = !!movies.length;
-    const shouldDisplayPagination = totalPages > 1;
+    const shouldRenderPagination = totalPages > 1;
 
     return (
       <div className="Search">
@@ -115,8 +127,14 @@ class Search extends Component {
           {loading && this._renderLoadingMask()}
           <div className="Search__results">
             {shouldRenderEmptyResults && this._renderEmptyResults()}
-            {shouldRenderResults && <MovieList className="Search__list" movies={movies} />}
-            {shouldDisplayPagination && (
+            {shouldRenderResults && (
+              <MovieList
+                className="Search__list"
+                movies={movies}
+                onDeleteMovie={this._handleMovieDelete}
+              />
+            )}
+            {shouldRenderPagination && (
               <Pagination
                 className="Search__pagination"
                 currentPage={currentPage}
