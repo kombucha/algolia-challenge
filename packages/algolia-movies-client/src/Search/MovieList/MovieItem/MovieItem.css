@@ -16,6 +16,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left center;
+  background-color: #ccc;
 }
 
 .MovieItem__actions {
