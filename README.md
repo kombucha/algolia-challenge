@@ -73,6 +73,13 @@ Finally 😅, you can start the app in dev mode :
 npm start
 ```
 
+### (Optional)
+You can seed the database
+```sh
+cd packages/algolia-movies-server
+npm run import-movies
+```
+
 
 ## Instructions
 

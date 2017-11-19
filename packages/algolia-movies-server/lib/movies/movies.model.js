@@ -25,6 +25,7 @@ const remove = async objectID => {
 };
 
 module.exports = {
+  COLLECTION_NAME,
   create,
   remove,
 };

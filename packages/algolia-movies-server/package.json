@@ -6,7 +6,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "nodemon -r dotenv/config index.js"
+    "start": "nodemon -r dotenv/config index.js",
+    "import-movies": "node -r dotenv/config scripts/import-movies.js"
   },
   "engines": {
     "node": ">= 8.9"
