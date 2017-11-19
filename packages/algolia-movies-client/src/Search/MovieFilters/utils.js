@@ -80,7 +80,7 @@ export const generateAlgoliaFilters = filters => {
 };
 
 // We only want good movies by default :)
-export const DEFAULT_FILTERS = { genre: {}, rating: 4 };
+export const DEFAULT_FILTERS = { genre: {}, rating: 3 };
 
 export default {
   DEFAULT_FILTERS,

@@ -1,13 +1,16 @@
 import React from "react";
+import classnames from "classnames/dedupe";
 import PropTypes from "prop-types";
 
 import "./Button.css";
 
-const Button = ({ children, type, disabled, onClick, color }) => (
+const NO_STYLE = {};
+
+const Button = ({ className, children, type, disabled, onClick, color }) => (
   <button
-    className="Button"
+    className={classnames("Button", className)}
     type={type}
-    style={{ color, borderColor: color }}
+    style={disabled ? NO_STYLE : { color, borderColor: color }}
     onClick={onClick}
     disabled={disabled}>
     {children}
@@ -15,6 +18,7 @@ const Button = ({ children, type, disabled, onClick, color }) => (
 );
 
 Button.propTypes = {
+  className: PropTypes.string,
   onClick: PropTypes.func,
   type: PropTypes.string,
   color: PropTypes.string,

@@ -3,7 +3,9 @@
   outline: 0;
   margin: 0;
   padding: 0.3rem;
+
   cursor: pointer;
+  user-select: none;
 
   color: #00aeff;
   border: 2px solid #00aeff;
@@ -15,4 +17,11 @@
 .Button:hover,
 .Button:focus {
   opacity: 1;
+}
+
+.Button:disabled {
+  color: #999;
+  border-color: #999;
+  pointer-events: none;
+  cursor: default;
 }

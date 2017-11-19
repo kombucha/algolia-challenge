@@ -1,11 +1,14 @@
 import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 import ChipsInput from "react-chips";
 import { toast } from "react-toastify";
+import { Prompt } from "react-router-dom";
 
 import moviesService from "../movies.service";
 import Card from "../common/Card";
 import Button from "../common/Button";
-import Rating from "../common/Rating";
+import RatingSlider from "../common/RatingSlider";
+import chipsInputTheme from "./chipsInputTheme";
 import "./MovieCreation.css";
 
 // Field types
@@ -29,6 +32,7 @@ class MovieCreation extends PureComponent {
     },
     suggestions: { actors: [], genres: [] },
     loading: false,
+    dirty: false,
   };
 
   componentDidMount = () => {
@@ -42,7 +46,7 @@ class MovieCreation extends PureComponent {
 
     switch (type) {
       case NUMBER:
-        newValue = parseInt(changeObj.target.value, 10);
+        newValue = changeObj.target.value !== "" ? parseInt(changeObj.target.value, 10) : "";
         break;
       case FILE:
         newValue = changeObj.target.files[0];
@@ -63,6 +67,7 @@ class MovieCreation extends PureComponent {
         ...movie,
         [name]: newValue,
       },
+      dirty: true,
     });
   };
 
@@ -72,8 +77,9 @@ class MovieCreation extends PureComponent {
     });
   };
 
-  _handleMovieCreation = e => {
-    e.preventDefault();
+  _handlePreventSubmit = e => e.preventDefault();
+
+  _handleMovieCreation = () => {
     this.setState({ loading: true });
     moviesService
       .create(this.state.movie)
@@ -86,12 +92,18 @@ class MovieCreation extends PureComponent {
       });
   };
 
+  _handleCancel = () => {
+    this.props.history.push("/");
+  };
+
   render = () => {
-    const { movie, suggestions } = this.state;
+    const { movie, suggestions, dirty } = this.state;
+    const shouldDisableCreationButton = !dirty;
+
     return (
       <div className="MovieCreation">
         <Card>
-          <form className="MovieCreation__form" onSubmit={this._handleMovieCreation}>
+          <form className="MovieCreation__form" onSubmit={this._handlePreventSubmit}>
             <h2> Movie creation </h2>
             {/* Title */}
             <label className="MovieCreation__field" htmlFor="title">
@@ -113,9 +125,10 @@ class MovieCreation extends PureComponent {
               Alternative Titles
               <ChipsInput
                 className="MovieCreation__input"
+                theme={chipsInputTheme}
                 name="alternative_titles"
                 id="alternative_titles"
-                placeholder="Alternative titles"
+                placeholder={movie.alternative_titles.length === 0 ? "Alternative titles" : null}
                 onChange={this._handleFieldChange("alternative_titles", MULTI)}
                 createChipKeys={CHIP_KEYS}
                 value={movie.alternative_titles}
@@ -139,28 +152,23 @@ class MovieCreation extends PureComponent {
             {/* Rating */}
             <label className="MovieCreation__field" htmlFor="rating">
               Rating
-              <div>
-                <input
-                  className="MovieCreation__input"
-                  type="range"
-                  name="rating"
-                  id="rating"
-                  min="0"
-                  max="5"
-                  value={movie.rating}
-                  onChange={this._handleFieldChange("rating", NUMBER)}
-                />
-                <Rating value={movie.rating} />
-              </div>
+              <RatingSlider
+                id="rating"
+                name="rating"
+                className="MovieCreation__input"
+                value={movie.rating}
+                onChange={this._handleFieldChange("rating", NUMBER)}
+              />
             </label>
             {/* Genres */}
             <label className="MovieCreation__field" htmlFor="genre">
               Genres
               <ChipsInput
+                theme={chipsInputTheme}
                 className="MovieCreation__input"
                 name="genre"
                 id="genre"
-                placeholder="Genres"
+                placeholder={movie.genre.length === 0 ? "Genres" : null}
                 suggestions={suggestions.genres}
                 createChipKeys={CHIP_KEYS}
                 value={movie.genre}
@@ -172,10 +180,11 @@ class MovieCreation extends PureComponent {
             <label className="MovieCreation__field" htmlFor="actors">
               Actors
               <ChipsInput
+                theme={chipsInputTheme}
                 className="MovieCreation__input"
                 name="actors"
                 id="actors"
-                placeholder="Actors"
+                placeholder={movie.actors.length === 0 ? "Actors" : null}
                 suggestions={suggestions.actors}
                 createChipKeys={CHIP_KEYS}
                 value={movie.actors}
@@ -197,14 +206,28 @@ class MovieCreation extends PureComponent {
               />
             </label>
             <div className="MovieCreation__actions">
-              <Button> Cancel </Button>
-              <Button type="submit"> Create </Button>
+              <Button color="#f00" onClick={this._handleCancel}>
+                {" "}
+                Cancel{" "}
+              </Button>
+              <Button
+                type="submit"
+                disabled={shouldDisableCreationButton}
+                onClick={this._handleMovieCreation}>
+                Create
+              </Button>
             </div>
           </form>
         </Card>
+
+        <Prompt when={dirty} message="Are you sure you want to leave and lose your work so far ?" />
       </div>
     );
   };
 }
+
+MovieCreation.propTypes = {
+  history: PropTypes.object.isRequired,
+};
 
 export default MovieCreation;

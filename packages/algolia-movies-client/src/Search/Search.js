@@ -17,6 +17,9 @@ import MovieList from "./MovieList";
 
 import "./Search.css";
 
+// Enhancement -> smooth scroll
+const scrollToTop = () => window.scrollTo(0, 0);
+
 class Search extends Component {
   state = {
     movies: [],
@@ -48,9 +51,9 @@ class Search extends Component {
         page: nextState.currentPage,
         ...nextFilters,
       });
-    }
 
-    this.props.history.push({ search: `?${stateToQueryParams(nextState)}` });
+      this.props.history.replace({ search: `?${stateToQueryParams(nextState)}` });
+    }
   };
 
   // Filtering change handlers
@@ -94,6 +97,7 @@ class Search extends Component {
           ...updateStateFromSearchResults(this.state, searchResults),
           loading: false,
         });
+        scrollToTop();
       })
       .catch(e => {
         toast.error("Search failed");
