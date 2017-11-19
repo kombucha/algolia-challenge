@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import queryString from "query-string";
 import deepEqual from "deep-equal";
 import KawaiiPlanet from "../KawaiiPlanet";
 
@@ -12,7 +11,7 @@ import MovieList from "../MovieList";
 import Pagination from "../Pagination";
 import LoadingMask from "../LoadingMask";
 import moviesService from "../movies.service";
-import { stateFromSearchResult } from "./utils";
+import { updateStateFromSearchResults, stateToQueryParams, stateFromQueryParams } from "./utils";
 import { generateAlgoliaFilters, DEFAULT_FILTERS } from "../MovieFilters/utils";
 
 import "./Search.css";
@@ -28,11 +27,7 @@ class Search extends Component {
   };
 
   componentDidMount = () => {
-    const queryParams = queryString.parse(this.props.location.search);
-    const searchText = queryParams.query || "";
-    const currentPage = queryParams.page ? parseInt(queryParams.page, 10) : 0;
-    // Init the state from the query params.
-    this.setState({ searchText, currentPage });
+    this.setState(stateFromQueryParams(this.props.location.search));
   };
 
   shouldComponentUpdate = (nextProps, nextState) => {
@@ -54,8 +49,7 @@ class Search extends Component {
       });
     }
 
-    const queryParams = { page: nextState.currentPage, query: nextState.searchText };
-    this.props.history.push({ search: `?${queryString.stringify(queryParams)}` });
+    this.props.history.push({ search: `?${stateToQueryParams(nextState)}` });
   };
 
   // Filtering change handlers
@@ -78,13 +72,16 @@ class Search extends Component {
     this.setState({ loading: true });
     this._currentSearch.then(searchResults => {
       this._currentSearch = null;
-      this.setState({ ...stateFromSearchResult(this.state, searchResults), loading: false });
+      this.setState({
+        ...updateStateFromSearchResults(this.state, searchResults),
+        loading: false,
+      });
     });
   };
 
   _renderEmptyResults = () => (
     <Card className="Search__empty">
-      <KawaiiPlanet size={200} mood="sad" color="#00aeff" />
+      <KawaiiPlanet />
       <span>Oh noes, we couldn't find anything !</span>
       <button className="Search__reset-button" onClick={this._handleResetSearch}>
         Reset and try again
