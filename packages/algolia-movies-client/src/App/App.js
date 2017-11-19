@@ -1,23 +1,32 @@
-import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { Switch, Route, withRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 import Header from "../Header";
-import Search from "../Search";
 import Button from "../Button";
+import Search from "../Search";
+import MovieCreation from "../MovieCreation";
 
 import "./App.css";
 
-class App extends Component {
+class App extends PureComponent {
+  _handleCreateMovie = () => {
+    this.props.history.push("/create");
+  };
   render() {
+    console.log(this.props);
     return (
       <div className="App">
         <Header title="Movies">
-          <Button>Create new movie</Button>
+          <Button onClick={this._handleCreateMovie}>Create new movie</Button>
         </Header>
         <main className="App__content">
-          <Route path="/" component={Search} />
+          <Switch>
+            <Route path="/create" component={MovieCreation} />
+            <Route path="/" exact component={Search} />
+          </Switch>
         </main>
         <ToastContainer
           position="bottom-center"
@@ -32,4 +41,8 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  history: PropTypes.object.isRequired,
+};
+
+export default withRouter(App);
