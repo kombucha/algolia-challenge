@@ -11,8 +11,6 @@ You can see a running version of my code at [http://algolia.limbocitizen.com](ht
 git clone https://github.com/kombucha/algolia-challenge
 cd algolia-challenge
 yarn install
-# or 
-npm install
 ```
 
 ### Setting up the database
@@ -70,14 +68,14 @@ Client
 
 Finally 😅, you can start the app in dev mode : 
 ```sh
-npm start
+yarn run start
 ```
 
 ### (Optional)
 You can seed the database
 ```sh
 cd packages/algolia-movies-server
-npm run import-movies
+yarn run import-movies
 ```
 
 
