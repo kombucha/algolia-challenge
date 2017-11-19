@@ -1,5 +1,6 @@
 import algoliaSearch from "algoliasearch/lite";
 import CancelablePromise from "cancelable-promise";
+import movieValidator from "algolia-movies-shared/validation/movie";
 
 const client = algoliaSearch(
   process.env.REACT_APP_ALGOLIA_APP_ID,
@@ -97,15 +98,7 @@ export function remove(movieId) {
  * @returns {object|null} An object of errors, null if valid;
  */
 export function validateMovie(movie) {
-  if (movie.title && movie.image && movie.year) {
-    return null;
-  }
-
-  return {
-    title: movie.title ? undefined : "The title is required",
-    year: movie.year ? undefined : "The year is required",
-    image: movie.image ? undefined : "The movie poster is required",
-  };
+  return movieValidator(movie);
 }
 
 export default {

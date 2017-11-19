@@ -27,7 +27,7 @@
     },
     "image": {
       "$id": "/properties/image",
-      "type": "string"
+      "type": ["object", "string"]
     },
     "rating": {
       "$id": "/properties/rating",

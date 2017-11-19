@@ -19,17 +19,19 @@ const STRING = "STRING";
 const MULTI = "MULTI";
 const FILE = "FILE";
 
+const DEFAULT_MOVIE = {
+  title: "",
+  alternative_titles: [],
+  year: new Date().getFullYear(),
+  genre: [],
+  actors: [],
+  rating: 3,
+  image: null,
+};
+
 class MovieCreation extends PureComponent {
   state = {
-    movie: {
-      title: "",
-      alternative_titles: [],
-      year: new Date().getFullYear(),
-      genre: [],
-      actors: [],
-      rating: 3,
-      image: null,
-    },
+    movie: DEFAULT_MOVIE,
     suggestions: { actors: [], genres: [] },
     loading: false,
     dirty: false,

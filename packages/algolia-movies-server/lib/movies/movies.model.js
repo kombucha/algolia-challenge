@@ -3,19 +3,18 @@ const uuid = require("uuid/v4");
 const db = require("../db");
 const logger = require("../logger");
 const { CustomError } = require("../errors");
-const { validateModel, formatValidationErrors } = require("../utils");
-const movieSchema = require("./movies.schema.json");
+const validateMovie = require("algolia-movies-shared/validation/movie");
 
 const COLLECTION_NAME = "movies";
 
 const create = async movie => {
   const createdMovie = Object.assign({}, movie, { objectID: uuid() });
 
-  const validationErrors = validateModel(movieSchema, createdMovie);
+  const validationErrors = validateMovie(createdMovie);
 
   if (validationErrors) {
     throw new CustomError("Movie validation error", 400, {
-      errors: formatValidationErrors(validationErrors),
+      validationErrors,
     });
   }
 

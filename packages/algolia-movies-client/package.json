@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "algoliasearch": "3.24.6",
+    "algolia-movies-shared": "1.0.0",
     "cancelable-promise": "2.4.0",
     "classnames": "2.2.5",
     "normalize.css": "7.0.0",
