@@ -6,6 +6,7 @@
 }
 
 .Search__main {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-content: space-between;

@@ -6,9 +6,11 @@ import KawaiiPlanet from "../KawaiiPlanet";
 
 import Card from "../Card";
 import SearchInput from "../SearchInput";
+import DelayedComponent from "../DelayedComponent";
 import MovieFilters from "../MovieFilters";
 import MovieList from "../MovieList";
 import Pagination from "../Pagination";
+import LoadingMask from "../LoadingMask";
 import moviesService from "../movies.service";
 import { stateFromSearchResult } from "./utils";
 import { generateAlgoliaFilters, DEFAULT_FILTERS } from "../MovieFilters/utils";
@@ -22,6 +24,7 @@ class Search extends Component {
     totalPages: -1,
     searchText: "",
     filters: DEFAULT_FILTERS,
+    loading: false,
   };
 
   componentDidMount = () => {
@@ -72,9 +75,10 @@ class Search extends Component {
     this._currentSearch = moviesService.search(query, options);
 
     // Update state when it's done
+    this.setState({ loading: true });
     this._currentSearch.then(searchResults => {
       this._currentSearch = null;
-      this.setState(stateFromSearchResult(this.state, searchResults));
+      this.setState({ ...stateFromSearchResult(this.state, searchResults), loading: false });
     });
   };
 
@@ -87,12 +91,19 @@ class Search extends Component {
       </button>
     </Card>
   );
+
+  _renderLoadingMask = () => (
+    <DelayedComponent delay={300}>
+      <LoadingMask />
+    </DelayedComponent>
+  );
+
   render = () => {
-    const { movies, currentPage, totalPages, searchText, filters } = this.state;
+    const { movies, currentPage, totalPages, searchText, filters, loading } = this.state;
+
+    const shouldRenderEmptyResults = !movies.length && !loading;
+    const shouldRenderResults = !!movies.length;
     const shouldDisplayPagination = totalPages > 1;
-    // Should have a more robust way of distinguishing between empty results and loading state
-    // ie: this.state.loading
-    const shouldRenderEmptyResults = !movies.length && totalPages !== -1;
 
     return (
       <div className="Search">
@@ -104,13 +115,10 @@ class Search extends Component {
           onChange={this._handleSearchChange}
         />
         <div className="Search__main">
+          {loading && this._renderLoadingMask()}
           <div className="Search__results">
-            {shouldRenderEmptyResults ? (
-              this._renderEmptyResults()
-            ) : (
-              <MovieList className="Search__list" movies={movies} />
-            )}
-
+            {shouldRenderEmptyResults && this._renderEmptyResults()}
+            {shouldRenderResults && <MovieList className="Search__list" movies={movies} />}
             {shouldDisplayPagination && (
               <Pagination
                 className="Search__pagination"
