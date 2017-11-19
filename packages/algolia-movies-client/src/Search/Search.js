@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import queryString from "query-string";
 import deepEqual from "deep-equal";
-import { KawaiiPlanet } from "react-kawaii";
+import KawaiiPlanet from "../KawaiiPlanet";
 
 import Card from "../Card";
 import SearchInput from "../SearchInput";
