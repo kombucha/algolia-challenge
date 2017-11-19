@@ -11,12 +11,10 @@ class DelayedComponent extends PureComponent {
   }
 
   componentDidMount() {
-    console.log("did mount");
     this._scheduleRender(this.props.delay);
   }
 
   componentWillUnmount() {
-    console.log("unmount");
     this._clearTimer();
   }
 
