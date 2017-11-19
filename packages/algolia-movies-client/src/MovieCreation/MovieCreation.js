@@ -8,6 +8,7 @@ import moviesService from "../movies.service";
 import Card from "../common/Card";
 import Button from "../common/Button";
 import LoadingMask from "../common/LoadingMask";
+import Input from "../common/Input";
 import RatingSlider from "../common/RatingSlider";
 import chipsInputTheme from "./chipsInputTheme";
 import "./MovieCreation.css";
@@ -17,8 +18,6 @@ const NUMBER = "NUMBER";
 const STRING = "STRING";
 const MULTI = "MULTI";
 const FILE = "FILE";
-
-const CHIP_KEYS = [9]; // create chips with tab
 
 class MovieCreation extends PureComponent {
   state = {
@@ -112,7 +111,7 @@ class MovieCreation extends PureComponent {
             {/* Title */}
             <label className="MovieCreation__field" htmlFor="title">
               Title *
-              <input
+              <Input
                 className="MovieCreation__input"
                 type="text"
                 name="title"
@@ -134,14 +133,13 @@ class MovieCreation extends PureComponent {
                 id="alternative_titles"
                 placeholder={movie.alternative_titles.length === 0 ? "Alternative titles" : null}
                 onChange={this._handleFieldChange("alternative_titles", MULTI)}
-                createChipKeys={CHIP_KEYS}
                 value={movie.alternative_titles}
               />
             </label>
             {/* Release year */}
             <label className="MovieCreation__field" htmlFor="year">
               Release year *
-              <input
+              <Input
                 className="MovieCreation__input"
                 type="number"
                 name="year"
@@ -174,7 +172,6 @@ class MovieCreation extends PureComponent {
                 id="genre"
                 placeholder={movie.genre.length === 0 ? "Genres" : null}
                 suggestions={suggestions.genres}
-                createChipKeys={CHIP_KEYS}
                 value={movie.genre}
                 alwaysRenderSuggestions
                 onChange={this._handleFieldChange("genre", MULTI)}
@@ -190,7 +187,6 @@ class MovieCreation extends PureComponent {
                 id="actors"
                 placeholder={movie.actors.length === 0 ? "Actors" : null}
                 suggestions={suggestions.actors}
-                createChipKeys={CHIP_KEYS}
                 value={movie.actors}
                 onChange={this._handleFieldChange("actors", MULTI)}
               />
