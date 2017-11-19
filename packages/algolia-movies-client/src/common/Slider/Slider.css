@@ -1,9 +1,7 @@
-/* OMG Thank you http://danielstern.ca/range.css/#/ */
-
 .Slider {
   -webkit-appearance: none;
   width: 100%;
-  margin: 10px 0;
+  margin: 8px 0;
 }
 
 .Slider:focus {
@@ -23,13 +21,13 @@
 .Slider::-webkit-slider-thumb {
   box-shadow: 0.5px 0.5px 0.5px rgba(40, 40, 40, 0.67), 0px 0px 0.5px rgba(53, 53, 53, 0.67);
   border: 2.8px solid #00aeff;
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
   border-radius: 50px;
   background: #ffffff;
   cursor: pointer;
   -webkit-appearance: none;
-  margin-top: -10px;
+  margin-top: -8px;
 }
 
 .Slider:focus::-webkit-slider-runnable-track {
@@ -49,8 +47,8 @@
 .Slider::-moz-range-thumb {
   box-shadow: 0.5px 0.5px 0.5px rgba(40, 40, 40, 0.67), 0px 0px 0.5px rgba(53, 53, 53, 0.67);
   border: 2.8px solid #00aeff;
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
   border-radius: 50px;
   background: #ffffff;
   cursor: pointer;
@@ -82,8 +80,8 @@
 .Slider::-ms-thumb {
   box-shadow: 0.5px 0.5px 0.5px rgba(40, 40, 40, 0.67), 0px 0px 0.5px rgba(53, 53, 53, 0.67);
   border: 2.8px solid #00aeff;
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
   border-radius: 50px;
   background: #ffffff;
   cursor: pointer;
