@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import deepEqual from "deep-equal";
-import KawaiiPlanet from "../KawaiiPlanet";
+import { toast } from "react-toastify";
 
+import KawaiiPlanet from "../KawaiiPlanet";
 import Card from "../Card";
 import SearchInput from "../SearchInput";
 import DelayedComponent from "../DelayedComponent";
@@ -60,11 +61,15 @@ class Search extends Component {
   _handlePageChange = currentPage => this.setState({ currentPage });
 
   _handleMovieDelete = movieId => {
-    moviesService.remove(movieId).then(this._refreshSearchResults);
+    moviesService
+      .remove(movieId)
+      .then(this._refreshSearchResults)
+      .catch(e => {
+        toast.error("Failed to delete movie");
+      });
   };
 
   _refreshSearchResults = () => {
-    console.log("REFRESHING");
     this._updateSearchResults(this.state.searchText, {
       page: this.state.currentPage,
       ...generateAlgoliaFilters(this.state.filters),
@@ -82,13 +87,17 @@ class Search extends Component {
 
     // Update state when it's done
     this.setState({ loading: true });
-    this._currentSearch.then(searchResults => {
-      this._currentSearch = null;
-      this.setState({
-        ...updateStateFromSearchResults(this.state, searchResults),
-        loading: false,
+    this._currentSearch
+      .then(searchResults => {
+        this._currentSearch = null;
+        this.setState({
+          ...updateStateFromSearchResults(this.state, searchResults),
+          loading: false,
+        });
+      })
+      .catch(e => {
+        toast.error("Search failed");
       });
-    });
   };
 
   _renderEmptyResults = () => (

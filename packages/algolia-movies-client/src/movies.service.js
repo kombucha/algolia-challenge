@@ -25,7 +25,6 @@ const DEFAULT_SEARCH_OPTIONS = {
   facets: ["genre"],
 };
 export function search(query, options) {
-  console.log("search");
   return new CancelablePromise((resolve, reject) => {
     moviesIndex.search({ query, ...DEFAULT_SEARCH_OPTIONS, ...options }).then(results => {
       results.hits = results.hits.filter(movie => !hackyDeletionCache.has(movie.objectID));

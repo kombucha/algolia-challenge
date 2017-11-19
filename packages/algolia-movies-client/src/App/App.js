@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import Header from "../Header";
 import Search from "../Search";
@@ -17,6 +19,14 @@ class App extends Component {
         <main className="App__content">
           <Route path="/" component={Search} />
         </main>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          pauseOnHover
+        />
       </div>
     );
   }
