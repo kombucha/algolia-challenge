@@ -2,6 +2,10 @@
   padding: 1rem;
 }
 
+.MovieCreation__content {
+  position: relative;
+}
+
 .MovieCreation__form {
   display: flex;
   flex-direction: column;

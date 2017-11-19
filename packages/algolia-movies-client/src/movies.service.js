@@ -24,6 +24,12 @@ const DEFAULT_SEARCH_OPTIONS = {
   maxValuesPerFacet: 10,
   facets: ["genre"],
 };
+/**
+ * Search Movies.
+ * @param {string} [query]  the text query
+ * @param {object} [options] other options
+ * @returns {CancelablePromise} Algolia search results cancelable promise
+ */
 export function search(query, options) {
   return new CancelablePromise((resolve, reject) => {
     moviesIndex.search({ query, ...DEFAULT_SEARCH_OPTIONS, ...options }).then(results => {
@@ -33,7 +39,11 @@ export function search(query, options) {
   });
 }
 
-export function getSuggestions() {
+/**
+ * Gets movie facets suggestions (genres + actors)
+ * @returns {CancelablePromise} A promise containing a object, each key is an array of possible values.
+ */
+export function getSuggestions(facets) {
   return new CancelablePromise((resolve, reject) => {
     Promise.all([
       moviesIndex.searchForFacetValues({ facetName: "genre", facetQuery: "", maxFacetHits: 30 }),
@@ -47,6 +57,11 @@ export function getSuggestions() {
   });
 }
 
+/**
+ * Creates a movie.
+ * @param {object} movie
+ * @return {Promise} A promise
+ */
 export function create(movie) {
   const formData = new FormData();
   formData.append("movie", JSON.stringify({ ...movie, image: null }));
@@ -58,6 +73,11 @@ export function create(movie) {
   }).then(r => (r.ok ? Promise.resolve(r.statusText) : Promise.reject(r.statusText)));
 }
 
+/**
+ * Deletes a movie.
+ * @param {string} [movieId] The movie id
+ * @returns {Promise} A promise
+ */
 export function remove(movieId) {
   return fetch(`/api/1/movies/${movieId}`, {
     method: "DELETE",
@@ -71,9 +91,27 @@ export function remove(movieId) {
   });
 }
 
+/**
+ * Very basic movie validation
+ * @param {object} movie
+ * @returns {object|null} An object of errors, null if valid;
+ */
+export function validateMovie(movie) {
+  if (movie.title && movie.image && movie.year) {
+    return null;
+  }
+
+  return {
+    title: movie.title ? undefined : "The title is required",
+    year: movie.year ? undefined : "The year is required",
+    image: movie.image ? undefined : "The movie poster is required",
+  };
+}
+
 export default {
   search,
   getSuggestions,
   create,
   remove,
+  validateMovie,
 };

@@ -7,6 +7,7 @@ import { Prompt } from "react-router-dom";
 import moviesService from "../movies.service";
 import Card from "../common/Card";
 import Button from "../common/Button";
+import LoadingMask from "../common/LoadingMask";
 import RatingSlider from "../common/RatingSlider";
 import chipsInputTheme from "./chipsInputTheme";
 import "./MovieCreation.css";
@@ -85,6 +86,8 @@ class MovieCreation extends PureComponent {
       .create(this.state.movie)
       .then(() => {
         toast.success("Movie created");
+        // Go back to home
+        this.setState({ loading: false, dirty: false }, () => this.props.history.push("/"));
       })
       .catch(() => {
         this.setState({ loading: false });
@@ -97,12 +100,13 @@ class MovieCreation extends PureComponent {
   };
 
   render = () => {
-    const { movie, suggestions, dirty } = this.state;
-    const shouldDisableCreationButton = !dirty;
+    const { movie, suggestions, loading, dirty } = this.state;
+    const errors = moviesService.validateMovie(movie);
+    const shouldDisableCreationButton = !!errors || !dirty;
 
     return (
       <div className="MovieCreation">
-        <Card>
+        <Card className="MovieCreation__content">
           <form className="MovieCreation__form" onSubmit={this._handlePreventSubmit}>
             <h2> Movie creation </h2>
             {/* Title */}
@@ -218,6 +222,7 @@ class MovieCreation extends PureComponent {
               </Button>
             </div>
           </form>
+          {loading && <LoadingMask />}
         </Card>
 
         <Prompt when={dirty} message="Are you sure you want to leave and lose your work so far ?" />
