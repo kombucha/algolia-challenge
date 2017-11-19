@@ -1,4 +1,6 @@
-const { validateModel } = require("./index");
+var validateModel = require("./index").validateModel;
 const movieSchema = require("./movie.schema.json");
 
-module.exports = movie => validateModel(movieSchema, movie);
+module.exports = function(movie) {
+  return validateModel(movieSchema, movie);
+};
