@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import KawaiiPlanet from "../common/KawaiiPlanet";
 import Card from "../common/Card";
 import DelayedComponent from "../common/DelayedComponent";
+import Button from "../common/Button";
 import Pagination from "../common/Pagination";
 import LoadingMask from "../common/LoadingMask";
 import moviesService from "../movies.service";
@@ -72,6 +73,10 @@ class Search extends Component {
           toast.error("Failed to delete movie");
         });
     }
+  };
+
+  _handleCreateMovie = () => {
+    this.props.history.push("/create");
   };
 
   _refreshSearchResults = () => {
@@ -158,7 +163,10 @@ class Search extends Component {
               />
             )}
           </div>
-          <div className="Search__facets">
+          <div className="Search__right-pane">
+            <Button className="Search__create" onClick={this._handleCreateMovie}>
+              Create new movie
+            </Button>
             <MovieFilters filters={filters} onChange={this._handlerFiltersChanged} />
           </div>
         </div>

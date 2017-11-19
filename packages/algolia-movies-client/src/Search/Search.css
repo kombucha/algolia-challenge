@@ -51,13 +51,20 @@
   width: 100%;
 }
 
-.Search__facets {
+.Search__right-pane {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
   margin-left: 1rem;
+}
+
+.Search__create {
+  margin-bottom: 1rem;
 }
 
 /* It gets cramped at some point, facets are less essential */
 @media only screen and (max-width: 600px) {
-  .Search__facets {
+  .Search__right-pane {
     display: none;
   }
 }

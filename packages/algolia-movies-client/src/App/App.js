@@ -1,26 +1,19 @@
-import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
-import { Switch, Route, withRouter } from "react-router-dom";
+import React, { Component } from "react";
+import { Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 import Header from "../common/Header";
-import Button from "../common/Button";
 import Search from "../Search";
 import MovieCreation from "../MovieCreation";
 
 import "./App.css";
 
-class App extends PureComponent {
-  _handleCreateMovie = () => {
-    this.props.history.push("/create");
-  };
+class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header title="Movies">
-          <Button onClick={this._handleCreateMovie}>Create new movie</Button>
-        </Header>
+        <Header title="Movies" />
         <main className="App__content">
           <Switch>
             <Route path="/create" component={MovieCreation} />
@@ -40,8 +33,4 @@ class App extends PureComponent {
   }
 }
 
-App.propTypes = {
-  history: PropTypes.object.isRequired,
-};
-
-export default withRouter(App);
+export default App;

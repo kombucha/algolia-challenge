@@ -10,13 +10,17 @@
   color: #00aeff;
   border: 2px solid #00aeff;
   border-radius: 4px;
-  opacity: 0.8;
-  transition: opacity 0.3s linear;
+  opacity: 1;
+  transition: all 0.2s linear;
 }
 
 .Button:hover,
 .Button:focus {
-  opacity: 1;
+  opacity: 0.8;
+}
+
+.Button:hover {
+  box-shadow: 1px 2px 3px 0px rgba(50, 50, 50, 0.25);
 }
 
 .Button:disabled {
