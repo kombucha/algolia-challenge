@@ -5,9 +5,11 @@ import SearchIcon from "react-icons/lib/md/search";
 
 import "./SearchInput.css";
 
+const ICON_STYLE = { height: "2rem", width: "2rem" };
+
 const SearchInput = ({ className, value, placeholder, autoFocus, onChange }) => (
   <div className={classnames("SearchInput", className)}>
-    <SearchIcon className="SearchInput__icon" size="2rem" />
+    <SearchIcon className="SearchInput__icon" style={ICON_STYLE} />
     <input
       className="SearchInput__input"
       type="search"
